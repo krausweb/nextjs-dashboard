@@ -1,0 +1,8 @@
+# Ignore all CSS files in the styles folder:
+-/*.scriban
+gulp/**/*.js
+styles/*.css
+**/*.md
+**/*.json
+gulpfile.js
+.eslintrc.js
