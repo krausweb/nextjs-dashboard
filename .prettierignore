@@ -6,3 +6,12 @@ styles/*.css
 **/*.json
 gulpfile.js
 .eslintrc.js
+.next
+.cache
+public
+node_modules
+next-env.d.ts
+next.config.ts
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
