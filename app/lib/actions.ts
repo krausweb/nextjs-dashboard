@@ -21,9 +21,9 @@ const FormSchema = z.object({
 
 export type State = {
 	errors?: {
-		customerId?: string;
-		amount?: string;
-		status?: string;
+		customerId?: string | Array<string>;
+		amount?: string | Array<string>;
+		status?: string | Array<string>;
 	};
 	message?: string | null;
 };
@@ -75,7 +75,7 @@ export async function updateInvoice(id: string, prevStep: State, formData: FormD
 		status: formData.get('status'),
 	});
 
-	if(!validatedFields.success) {
+	if (!validatedFields.success) {
 		return {
 			errors: validatedFields.error.flatten().fieldErrors,
 			message: 'Missing Fields. Failed to Update Invoice',
