@@ -7,13 +7,15 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
+// MARK: Invoice Actions and deps
+
 const FormSchema = z.object({
 	id: z.string(),
 	customerId: z.string({
 		invalid_type_error: 'Please select a customer',
 	}),
-	amount: z.coerce
-		.number()
+	amount: z.coerce // convert string
+		.number()	// 					to number
 		.gt(0, { message: 'Please enter an amount greater than $0' }),
 	status: z.enum(['pending', 'paid'], {
 		invalid_type_error: 'Please select an invoice status',
@@ -23,9 +25,9 @@ const FormSchema = z.object({
 
 export type State = {
 	errors?: {
-		customerId?: string | Array<string>;
-		amount?: string | Array<string>;
-		status?: string | Array<string>;
+		customerId?: string | string[];
+		amount?: string | string[];
+		status?: string | string[];
 	};
 	message?: string | null;
 };
@@ -119,6 +121,119 @@ export async function deleteInvoice(id: string) {
 		};
 	}
 }
+
+// MARK: Customers Actions and deps
+
+const FormSchemaCustomer = z.object({
+	id: z.string(),
+	name: z.string()
+		.min(3, { message: 'Please enter at least 3 symbols' }),
+	email: z.string()
+		.min(8, { message: 'Please enter at least 8 symbols' })
+		.email({ message: 'Please enter a valid email' }),
+	image_url: z.string()
+		.startsWith('https://', { message: 'Please enter a valid URL' })
+		.or(
+			z.string().startsWith('http://', { message: 'OR please enter a secure valid URL' })
+		)
+		.or(
+			z.string().startsWith('/', { message: 'OR please start URL with /' })
+		),
+});
+
+export type StateCustomer = {
+	errors?: {
+		name?: string | string[];
+		email?: string | string[];
+		image_url?: string | string[];
+	};
+	message?: string | null;
+};
+
+const CreateCustomer = FormSchemaCustomer.omit({ id: true });
+const UpdateCustomer = FormSchemaCustomer.omit({ id: true });
+
+export async function createCustomer(prevStep: StateCustomer, formData: FormData) {
+	const validatedFields = CreateCustomer.safeParse({
+		name: formData.get('name'),
+		email: formData.get('email'),
+		image_url: formData.get('image_url'),
+	});
+
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+			message: 'Missing Fields. Failed to Create Customer',
+		};
+	}
+
+	const { name, email, image_url } = validatedFields.data;
+
+	try {
+		await sql`
+			INSERT INTO customers (name, email, image_url)
+			VALUES (${name}, ${email}, ${image_url})
+		`;
+	} catch (error) {
+		return {
+			message: `Database Error: Failed to Create Customer`,
+		};
+	}
+
+	revalidatePath('/dashboard/customers');
+	redirect('/dashboard/customers');
+}
+
+export async function updateCustomer(id: string, prevStep: StateCustomer, formData: FormData) {
+	const validatedFields = UpdateCustomer.safeParse({
+		name: formData.get('name'),
+		email: formData.get('email'),
+		image_url: formData.get('image_url'),
+	});
+
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+			message: 'Missing Fields. Failed to Update Customer',
+		};
+	}
+
+	const { name, email, image_url } = validatedFields.data;
+
+	try {
+		await sql`
+			UPDATE customers
+			SET name = ${name}, email = ${email}, image_url = ${image_url}
+			WHERE id = ${id}
+		`;
+	} catch (error) {
+		return {
+			message: `Database Error: Failed to Update Customer`,
+		};
+	}
+
+	revalidatePath('/dashboard/customers');
+	redirect('/dashboard/customers');
+}
+
+export async function deleteCustomer(id: string) {
+	try {
+		await sql`
+			DELETE FROM customers
+			WHERE id = ${id}
+		`;
+		revalidatePath('/dashboard/customers');
+		return {
+			message: 'Deleted Customer',
+		};
+	} catch (error) {
+		return {
+			message: `Database Error: Failed to Delete Customer`,
+		};
+	}
+}
+
+// MARK: Authentication
 
 export async function authenticate(
 	prevState: string | undefined,
