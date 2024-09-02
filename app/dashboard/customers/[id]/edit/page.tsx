@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 	}
 
 	return (
-		<main>
+		<>
 			<Breadcrumbs
 				breadcrumbs={[
 					{ label: 'Customers', href: '/dashboard/customers' },
@@ -29,6 +29,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 				]}
 			/>
 			<Form customer={customer} />
-		</main>
+		</>
 	);
 }

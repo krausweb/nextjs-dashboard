@@ -11,7 +11,7 @@ import {
 
 export default async function Page() {
   return (
-    <main>
+    <div className="w-full">
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
@@ -28,6 +28,6 @@ export default async function Page() {
           <LatestInvoices/>
         </Suspense>
       </div>
-    </main>
+    </div>
   );
 }

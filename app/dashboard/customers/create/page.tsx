@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
 	return (
-		<main>
+		<>
 			<Breadcrumbs
 				breadcrumbs={[
 					{
@@ -23,6 +23,6 @@ export default async function Page() {
 				]}
 			/>
 			<Form />
-		</main>
+		</>
 	);
 }
