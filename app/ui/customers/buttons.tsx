@@ -1,6 +1,10 @@
+'use client';
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteCustomer } from '@/app/lib/actions';
+import Modal from '@/app/ui/modal';
+import { useState } from 'react';
 
 export function CreateCustomer() {
 	return (
@@ -21,15 +25,30 @@ export function UpdateCustomer({ id }: { id: string }) {
 	);
 }
 
-export function DeleteCustomer({ id }: { id: string }) {
+export function DeleteCustomer({ id, name }: { id: string; name: string }) {
 	const deleteCustomerWithId = deleteCustomer.bind(null, id);
 
+	const [show, setShow] = useState(false);
+	const modalContext = (
+		<>
+			Are you sure you want to delete <strong>{name}</strong>?
+		</>
+	);
+
 	return (
-		<form action={deleteCustomerWithId}>
-			<button className="rounded-md border p-2 hover:bg-gray-100">
-				<span className="sr-only">Delete</span>
-				<TrashIcon className="w-5" />
-			</button>
-		</form>
+		<div>
+			<Modal isOpen={show} body={modalContext} header="Delete" actionParentFunction={deleteCustomerWithId} />
+
+			<form
+				action={() => {
+					setShow(true);
+				}}
+			>
+				<button className="rounded-md border p-2 hover:bg-gray-100">
+					<span className="sr-only">Delete</span>
+					<TrashIcon className="w-5" />
+				</button>
+			</form>
+		</div>
 	);
 }

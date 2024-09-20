@@ -92,7 +92,7 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 				{/* Customer Image */}
 				<div className="mb-4">
 					<label htmlFor="image_url" className="mb-2 block text-sm font-medium">
-						<div className="flex w-40 justify-between items-center">
+						<div className="flex w-40 items-center justify-between">
 							<span>Customer Image</span>
 							<Image
 								src={image_url}
@@ -127,6 +127,12 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 					</div>
 				</div>
 			</div>
+
+			{state.message && (
+				<div aria-live="polite" aria-atomic="true">
+					<p className="mt-2 text-sm text-red-500">{state.message}</p>
+				</div>
+			)}
 
 			<div className="mt-6 flex justify-end gap-4">
 				<Link

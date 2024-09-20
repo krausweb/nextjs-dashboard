@@ -21,7 +21,7 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 														<Image
 															src={customer.image_url}
 															className="rounded-full"
-															alt={`${customer.name}'s profile picture`}
+															alt={customer.name.slice(0, 3)}
 															width={28}
 															height={28}
 														/>
@@ -46,7 +46,7 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 
 											<div className="flex justify-end gap-2">
 												<UpdateCustomer id={customer.id} />
-												<DeleteCustomer id={customer.id} />
+												<DeleteCustomer id={customer.id} name={customer.name} />
 											</div>
 										</div>
 									</div>
@@ -82,7 +82,7 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 													<Image
 														src={customer.image_url}
 														className="rounded-full"
-														alt={(customer.name).slice(0,3)}
+														alt={customer.name.slice(0, 3)}
 														width={28}
 														height={28}
 													/>
@@ -104,7 +104,7 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 											<td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
 												<div className="flex justify-end gap-3">
 													<UpdateCustomer id={customer.id} />
-													<DeleteCustomer id={customer.id} />
+													<DeleteCustomer id={customer.id} name={customer.name} />
 												</div>
 											</td>
 										</tr>

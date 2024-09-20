@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { createCustomer, StateCustomer } from '@/app/lib/actions';
-import { useActionState, useEffect, useState, useRef } from 'react';
+import { useActionState, useState } from 'react';
 
 export default function Form() {
 	const initialState: StateCustomer = {
@@ -89,7 +89,7 @@ export default function Form() {
 								name="image_url"
 								type="text"
 								defaultValue={image_url}
-								onChange={(e)=> setImageUrl(e.target.value)}
+								onChange={(e) => setImageUrl(e.target.value)}
 								placeholder="Enter Customer Image URL"
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="image_url-error"
@@ -106,6 +106,12 @@ export default function Form() {
 					</div>
 				</div>
 			</div>
+
+			{state.message && (
+				<div aria-live="polite" aria-atomic="true">
+					<p className="mt-2 text-sm text-red-500">{state.message}</p>
+				</div>
+			)}
 
 			<div className="mt-6 flex justify-end gap-4">
 				<Link
