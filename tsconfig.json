@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,6 +17,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
     "plugins": [
       {
         "name": "next"
@@ -20,7 +28,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -29,7 +39,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.ts",
-    "scripts/seed.js"
+    "scripts/seed.js",
+    "app/lib/vitest-setup.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

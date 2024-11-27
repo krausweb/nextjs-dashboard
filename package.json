@@ -4,7 +4,8 @@
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.4",
@@ -24,13 +25,19 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "20.14.8",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
-    "prettier-plugin-tailwindcss": "^0.6.5"
+    "jsdom": "^25.0.1",
+    "next-router-mock": "^0.9.13",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "vitest": "^2.1.6"
   },
   "engines": {
     "node": ">=20.12.0"
