@@ -1,6 +1,10 @@
-import styles from '@/app/ui/home.module.css';
+import type { Metadata } from 'next';
 
-<div className={styles.shape} />;
+export const metadata: Metadata = {
+	title: 'Counter Page',
+}
+
+import styles from '@/app/ui/home.module.css';
 
 export default function Page() {
 	return (
