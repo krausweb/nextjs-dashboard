@@ -3,7 +3,8 @@ import NavLinks from "@/app/ui/nav-links";
 const links = [
 	{ name: 'Components', href: '/components' },
 	{ name: 'Testpages', href: '/components/testpages' },
-	{ name: 'Redux Counter', href: '/components/counter' },
+	{ name: 'Redux Counter Official', href: '/components/redux-counter-official' },
+	{ name: 'Redux Counter Community', href: '/components/redux-counter-community' },
 ];
 
 export default function Sidenav(){
