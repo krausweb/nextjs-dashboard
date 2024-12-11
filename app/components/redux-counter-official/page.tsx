@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
 import { Counter } from '@/app/ui/counter/counter';
+import { Quotes } from '@/app/ui/quotes/quotes';
 
 export const metadata: Metadata = {
-	title: 'Counter Page',
+	title: 'Redux Components Page',
 }
 
 export default function Page() {
-	return <Counter/>;
+	return (
+		<>
+			<h1 className="text-3xl font-bold">Several Components with examples</h1>
+			<Counter />
+			<Quotes />
+		</>
+	);
 }
