@@ -10,7 +10,7 @@ import {
 	incrementIfOdd,
 	selectCount,
 	selectStatus,
-} from "@/app/lib/features/counter/counterSlice";
+} from "@/app/lib/features/redux/official/counter/counterSlice";
 
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import styles from "./counter.module.css";

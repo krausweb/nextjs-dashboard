@@ -1,6 +1,7 @@
 import NavLinks from "@/app/ui/nav-links";
 
 const links = [
+	{ name: 'Dashboard', href: '/dashboard' },
 	{ name: 'Components', href: '/components' },
 	{ name: 'Testpages', href: '/components/testpages' },
 	{ name: 'Redux Counter Official', href: '/components/redux-counter-official' },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetQuotesQuery } from '@/app/lib/features/quotes/quotesApiSlice';
+import { useGetQuotesQuery } from '@/app/lib/features/redux/official/quotes/quotesApiSlice';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 

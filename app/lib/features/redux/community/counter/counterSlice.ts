@@ -5,10 +5,12 @@ interface CounterState {
 }
 
 const initialState: CounterState = {
-	value: 0,
+	value: 5,
 }
 
 const counterSlice = createSlice({
+	// there is the name conflict with Official and Community counter example
+	// so, it needs to be like "counterCommunity" and the Store reducer object too
 	name: 'counter',
 	initialState,
 	reducers: {
