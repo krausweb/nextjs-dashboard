@@ -4,7 +4,7 @@ import { useRef, useLayoutEffect, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function ModalCreatePortal({ children, selector }: { children: ReactNode; selector: string }) {
-	const ref = useRef<Element | null>();
+	const ref = useRef<Element | null>(null);
 	const [mounted, setMounted] = useState(false);
 
 	useLayoutEffect(() => {

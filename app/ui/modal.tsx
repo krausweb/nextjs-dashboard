@@ -9,8 +9,8 @@ export default function Modal({
 	actionParentFunction,
 }: {
 	isOpen: boolean;
-	body: string | JSX.Element;
-	header?: string;
+	body: string | React.ReactNode;
+	header?: string; 
 	footer?: string;
 	actionParentFunction?: () => void;
 }) {

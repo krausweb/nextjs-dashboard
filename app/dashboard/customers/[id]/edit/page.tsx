@@ -8,15 +8,16 @@ export const metadata: Metadata = {
 	title: 'Customer Edit',
 };
 
-export default async function Page({ params }: { params: { id: string } }) {
-	const id = params.id;
-	const customer = await fetchCustomerById(id);
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    const id = params.id;
+    const customer = await fetchCustomerById(id);
 
-	if (!customer) {
+    if (!customer) {
 		notFound();
 	}
 
-	return (
+    return (
 		<>
 			<Breadcrumbs
 				breadcrumbs={[
