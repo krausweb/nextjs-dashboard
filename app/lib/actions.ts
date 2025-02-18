@@ -1,11 +1,13 @@
 'use server';
 
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
+import postgres from 'postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 // MARK: Invoice Actions and deps
 
@@ -35,7 +37,7 @@ export type State = {
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createInvoice(prevStep: State, formData: FormData) {
+export async function createInvoice(lng: string, prevStep: State, formData: FormData) {
 	// Validate form fields using Zod
 	const validatedFields = CreateInvoice.safeParse({
 		customerId: formData.get('customerId'),
@@ -68,11 +70,11 @@ export async function createInvoice(prevStep: State, formData: FormData) {
 	}
 
 	// Calling revalidatePath to clear the client cache and make a new server request.
-	revalidatePath('/dashboard/invoices');
-	redirect('/dashboard/invoices');
+	revalidatePath(`/${lng}/dashboard/invoices`);
+	redirect(`/${lng}/dashboard/invoices`);
 }
 
-export async function updateInvoice(id: string, prevStep: State, formData: FormData) {
+export async function updateInvoice(id: string, lng: string, prevStep: State, formData: FormData) {
 	const validatedFields = UpdateInvoice.safeParse({
 		customerId: formData.get('customerId'),
 		amount: formData.get('amount'),
@@ -101,20 +103,17 @@ export async function updateInvoice(id: string, prevStep: State, formData: FormD
 		};
 	}
 
-	revalidatePath('/dashboard/invoices');
-	redirect('/dashboard/invoices');
+	revalidatePath(`/${lng}/dashboard/invoices`);
+	redirect(`/${lng}/dashboard/invoices`);
 }
 
-export async function deleteInvoice(id: string) {
+export async function deleteInvoice(id: string, lng: string) {
 	try {
 		await sql`
 			DELETE FROM invoices
 			WHERE id = ${id}
 		`;
-		revalidatePath('/dashboard/invoices');
-		return {
-			message: 'Deleted Invoice',
-		};
+		revalidatePath(`/${lng}/dashboard/invoices`);
 	} catch (error) {
 		return {
 			message: `Database Error: Failed to Delete Invoice`,
@@ -153,7 +152,7 @@ export type StateCustomer = {
 const CreateCustomer = FormSchemaCustomer.omit({ id: true });
 const UpdateCustomer = FormSchemaCustomer.omit({ id: true });
 
-export async function createCustomer(prevStep: StateCustomer, formData: FormData) {
+export async function createCustomer(lng: string, prevStep: StateCustomer, formData: FormData) {
 	const validatedFields = CreateCustomer.safeParse({
 		name: formData.get('name'),
 		email: formData.get('email'),
@@ -180,11 +179,11 @@ export async function createCustomer(prevStep: StateCustomer, formData: FormData
 		};
 	}
 
-	revalidatePath('/dashboard/customers');
-	redirect('/dashboard/customers');
+	revalidatePath(`/${lng}/dashboard/customers`);
+	redirect(`/${lng}/dashboard/customers`);
 }
 
-export async function updateCustomer(id: string, prevStep: StateCustomer, formData: FormData) {
+export async function updateCustomer(id: string, lng: string, prevStep: StateCustomer, formData: FormData) {
 	const validatedFields = UpdateCustomer.safeParse({
 		name: formData.get('name'),
 		email: formData.get('email'),
@@ -212,20 +211,18 @@ export async function updateCustomer(id: string, prevStep: StateCustomer, formDa
 		};
 	}
 
-	revalidatePath('/dashboard/customers');
-	redirect('/dashboard/customers');
+	revalidatePath(`/${lng}/dashboard/customers`);
+	redirect(`/${lng}/dashboard/customers`);
 }
 
-export async function deleteCustomer(id: string) {
+export async function deleteCustomer(id: string, lng: string) {
 	try {
 		await sql`
 			DELETE FROM customers
 			WHERE id = ${id}
 		`;
-		revalidatePath('/dashboard/customers');
-		return {
-			message: 'Deleted Customer',
-		};
+		revalidatePath(`/${lng}/dashboard/customers`);
+
 	} catch (error) {
 		return {
 			message: `Database Error: Failed to Delete Customer`,

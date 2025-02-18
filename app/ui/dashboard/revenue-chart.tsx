@@ -1,8 +1,9 @@
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
-// import { Revenue } from '@/app/lib/definitions';
 import { fetchRevenue } from '@/app/lib/data';
+import { serverTranslation } from '@/app/i18n';
+import { Trans } from 'react-i18next/TransWithoutContext'
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -10,28 +11,26 @@ import { fetchRevenue } from '@/app/lib/data';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart(){
-  /*
-  ({
-  revenue,
-}: {
-  revenue: Revenue[];
-}) {
-  */
-  const revenue = await fetchRevenue();
+type LanguageType = {
+  lng: string
+}
 
-  const chartHeight = 350;
-
-  const { yAxisLabels, topLabel } = generateYAxis(revenue);
+export default async function RevenueChart({ lng }: LanguageType) {
+  const revenue = await fetchRevenue();  
+  const { t } = await serverTranslation(lng, 'dashboard');
 
   if (!revenue || revenue.length === 0) {
-    return <p className="mt-4 text-gray-400">No data available.</p>;
+    return <p className="mt-4 text-gray-400">{t('no-data-available')}</p>;
   }
+
+  const chartHeight = 350;
+  const { yAxisLabels, topLabel } = generateYAxis(revenue);
+  const monthsCount = revenue.length;
 
   return (
     <div className="w-full md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Recent Revenue
+        {t('recent-revenue')}
       </h2>
 
       <div className="rounded-xl bg-gray-50 p-4">
@@ -54,14 +53,18 @@ export default async function RevenueChart(){
                 }}
               ></div>
               <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">
-                {month.month}
+                {t(month.month.toLowerCase())}
               </p>
             </div>
           ))}
         </div>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />
-          <h3 className="ml-2 text-sm text-gray-500 ">Last 12 months</h3>
+          <h3 className="ml-2 text-sm text-gray-500">
+            <Trans i18nKey="last12Months" t={t}>
+              Last {{ monthsCount }} months
+            </Trans>
+          </h3>
         </div>
       </div>
     </div>

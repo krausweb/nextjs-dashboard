@@ -7,17 +7,23 @@ import { Button } from '@/app/ui/button';
 import { updateCustomer, StateCustomer } from '@/app/lib/actions';
 import { useActionState, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import { useTranslation } from '@/app/i18n/client';
 
-export default function EditInvoiceForm({ customer }: { customer: CustomerForm }) {
+export default function EditInvoiceForm({ customer, lng }: { customer: CustomerForm, lng: string }) {
 	const initialState: StateCustomer = {
 		message: null,
 		errors: {},
 	};
-	const { id } = customer;
 
+	const { id } = customer;
 	const [name, setName] = useState(customer.name);
 	const [email, setEmail] = useState(customer.email);
 	const [image_url, setImageUrl] = useState(customer.image_url);
+
+	const { t } = useTranslation(lng, 'dashboard');
+
+	const updateCustomerWithId = updateCustomer.bind(null, id, lng);
+	const [state, formAction] = useActionState(updateCustomerWithId, initialState);
 
 	const handleImageUrlChange = useDebouncedCallback((e) => {
 		if (e.target.value === '' || /\s/.test(e.target.value)) return;
@@ -25,16 +31,13 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 		setImageUrl(e.target.value);
 	}, 3000);
 
-	const updateCustomerWithId = updateCustomer.bind(null, id);
-	const [state, formAction] = useActionState(updateCustomerWithId, initialState);
-
 	return (
 		<form action={formAction}>
 			<div className="rounded-md bg-gray-50 p-4 md:p-6">
 				{/* Customer Name */}
 				<div className="mb-4">
 					<label htmlFor="name" className="mb-2 block text-sm font-medium">
-						Customer Name
+						{t('customer-name')}
 					</label>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
@@ -44,7 +47,7 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 								type="text"
 								defaultValue={name}
 								onChange={(e) => setName(e.target.value)}
-								placeholder="Enter Customer Name"
+								placeholder={t('enter-customer-name')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="name-error"
 							/>
@@ -63,7 +66,7 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 				{/* Customer Email */}
 				<div className="mb-4">
 					<label htmlFor="name" className="mb-2 block text-sm font-medium">
-						Customer Email
+						{t('customer-email')}
 					</label>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
@@ -73,7 +76,7 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 								type="text"
 								defaultValue={email}
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder="Enter Customer Email"
+								placeholder={t('enter-customer-email')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="email-error"
 							/>
@@ -93,7 +96,7 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 				<div className="mb-4">
 					<label htmlFor="image_url" className="mb-2 block text-sm font-medium">
 						<div className="flex w-40 items-center justify-between">
-							<span>Customer Image</span>
+							<span>{t('customer-image')}</span>
 							<Image
 								src={image_url}
 								className="rounded-full"
@@ -111,7 +114,7 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 								type="text"
 								defaultValue={image_url}
 								onChange={(e) => handleImageUrlChange(e)}
-								placeholder="Enter Customer Image URL"
+								placeholder={t('enter-customer-image-url')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="image_url-error"
 							/>
@@ -136,12 +139,12 @@ export default function EditInvoiceForm({ customer }: { customer: CustomerForm }
 
 			<div className="mt-6 flex justify-end gap-4">
 				<Link
-					href="/dashboard/customers"
+					href={`/${lng}/dashboard/customers`}
 					className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
 				>
-					Cancel
+					{t('cancel')}
 				</Link>
-				<Button type="submit">Edit Customer</Button>
+				<Button type="submit">{t('edit-customer')}</Button>
 			</div>
 		</form>
 	);

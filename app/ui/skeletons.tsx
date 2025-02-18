@@ -1,3 +1,5 @@
+import { serverTranslation } from '@/app/i18n';
+
 // Loading animation
 const shimmer =
   'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
@@ -163,7 +165,9 @@ export function InvoicesMobileSkeleton() {
   );
 }
 
-export function InvoicesTableSkeleton() {
+export async function InvoicesTableSkeleton({ lng }: { lng: string }) {  
+  const { t } = await serverTranslation(lng, 'dashboard');
+
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
@@ -180,25 +184,25 @@ export function InvoicesTableSkeleton() {
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Customer
+                  {t('customer')}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Email
+                  {t('email')}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
+                  {t('amount')}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Date
+                  {t('date')}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Status
+                  {t('status')}
                 </th>
                 <th
                   scope="col"
                   className="relative pb-4 pl-3 pr-6 pt-2 sm:pr-6"
                 >
-                  <span className="sr-only">Edit</span>
+                  <span className="sr-only">{t('edit')}</span>
                 </th>
               </tr>
             </thead>

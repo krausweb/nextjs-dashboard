@@ -4,17 +4,24 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { createCustomer, StateCustomer } from '@/app/lib/actions';
 import { useActionState, useState } from 'react';
+import { useTranslation } from '@/app/i18n/client';
 
-export default function Form() {
+type FormType = {
+	lng: string
+}
+
+export default function Form({ lng }: FormType) {
 	const initialState: StateCustomer = {
 		message: null,
 		errors: {},
 	};
-	const [state, formAction] = useActionState(createCustomer, initialState);
+	const createCustomerWithData = createCustomer.bind(null, lng);
+	const [state, formAction] = useActionState(createCustomerWithData, initialState);
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [image_url, setImageUrl] = useState('');
+	const { t } = useTranslation(lng, 'dashboard');
 
 	return (
 		<form action={formAction}>
@@ -22,7 +29,7 @@ export default function Form() {
 				{/* Customer Name */}
 				<div className="mb-4">
 					<label htmlFor="name" className="mb-2 block text-sm font-medium">
-						Customer Name
+						{t('customer-name')}
 					</label>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
@@ -32,7 +39,7 @@ export default function Form() {
 								type="text"
 								defaultValue={name}
 								onChange={(e) => setName(e.target.value)}
-								placeholder="Enter Customer Name"
+								placeholder={t('enter-customer-name')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="name-error"
 							/>
@@ -51,7 +58,7 @@ export default function Form() {
 				{/* Customer Email */}
 				<div className="mb-4">
 					<label htmlFor="email" className="mb-2 block text-sm font-medium">
-						Customer Email
+						{t('customer-email')}
 					</label>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
@@ -61,7 +68,7 @@ export default function Form() {
 								type="text"
 								defaultValue={email}
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder="Enter Customer Email"
+								placeholder={t('enter-customer-email')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="email-error"
 							/>
@@ -80,7 +87,7 @@ export default function Form() {
 				{/* Customer Image */}
 				<div className="mb-4">
 					<label htmlFor="image_url" className="mb-2 block text-sm font-medium">
-						Customer Image
+						{t('customer-image')}
 					</label>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
@@ -90,7 +97,7 @@ export default function Form() {
 								type="text"
 								defaultValue={image_url}
 								onChange={(e) => setImageUrl(e.target.value)}
-								placeholder="Enter Customer Image URL"
+								placeholder={t('enter-customer-image-url')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="image_url-error"
 							/>
@@ -115,12 +122,12 @@ export default function Form() {
 
 			<div className="mt-6 flex justify-end gap-4">
 				<Link
-					href="/dashboard/customers"
+					href={`/${lng}/dashboard/customers`}
 					className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
 				>
-					Cancel
+					{t('cancel')}
 				</Link>
-				<Button type="submit">Create Customer</Button>
+				<Button type="submit">{t('create-customer')}</Button>
 			</div>
 		</form>
 	);

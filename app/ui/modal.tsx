@@ -1,20 +1,28 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import ModalCreatePortal from '@/app/lib/modal-create-portal';
+import { useTranslation } from '../i18n/client';
+
+type ModalType = {
+	isOpen: boolean;
+	body: string | React.ReactNode;
+	header?: string;
+	footer?: string;
+	lng: string;
+	actionParentFunction?: () => void;
+};
 
 export default function Modal({
 	isOpen,
 	body,
 	header,
 	footer,
+	lng,
 	actionParentFunction,
-}: {
-	isOpen: boolean;
-	body: string | React.ReactNode;
-	header?: string; 
-	footer?: string;
-	actionParentFunction?: () => void;
-}) {
+}: ModalType) {
 	const [open, setOpen] = useState(false);
+	const { t } = useTranslation(lng);
 
 	const handleConfirmation = (state: boolean) => {
 		if (state && actionParentFunction) {
@@ -45,7 +53,9 @@ export default function Modal({
 											type="button"
 											onClick={() => handleConfirmation(false)}
 										>
-											<span className="block h-6 w-6 bg-transparent text-2xl text-black outline-none focus:outline-none">
+											<span className="block h-6 w-6 bg-transparent text-2xl text-black outline-none focus:outline-none"
+												title={t('cancel')}
+											>
 												×
 											</span>
 										</button>
@@ -62,14 +72,14 @@ export default function Modal({
 											type="button"
 											onClick={() => handleConfirmation(false)}
 										>
-											No
+											{t('no')}
 										</button>
 										<button
 											className="mb-1 mr-1 rounded bg-emerald-500 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600"
 											type="button"
 											onClick={() => handleConfirmation(true)}
 										>
-											Yes
+											{t('yes')}
 										</button>
 									</div>
 								</div>

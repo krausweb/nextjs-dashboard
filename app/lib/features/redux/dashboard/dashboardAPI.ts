@@ -1,12 +1,14 @@
 'use server';
 
-import { sql } from '@vercel/postgres';
+import postgres from 'postgres';
 import { CustomersTableType } from '@/app/lib/definitions';
 import { formatCurrency } from '@/app/lib/utils';
 
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
 export default async function fetchCustomers() {
 	try {
-		const data = await sql<CustomersTableType>`
+		const data = await sql<CustomersTableType[]>`
 		SELECT
 		  customers.id,
 		  customers.name,
@@ -21,7 +23,7 @@ export default async function fetchCustomers() {
 		ORDER BY customers.name ASC
 	  `;
 
-		const customers = data.rows.map((customer) => ({
+		const customers = data.map((customer) => ({
 			...customer,
 			total_pending: formatCurrency(customer.total_pending),
 			total_paid: formatCurrency(customer.total_paid),

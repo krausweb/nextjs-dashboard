@@ -1,9 +1,18 @@
 import Image from 'next/image';
 import { fetchFilteredCustomers } from '@/app/lib/data';
 import { DeleteCustomer, UpdateCustomer } from './buttons';
+import { serverTranslation } from '@/app/i18n';
+import { Trans } from 'react-i18next/TransWithoutContext'
 
-export default async function CustomersTable({ query, currentPage }: { query: string; currentPage: number }) {
-	const customers = await fetchFilteredCustomers(query, currentPage);
+type CustomerTableType = {
+	query: string,
+	currentPage: number,
+	lng: string
+};
+
+export default async function CustomersTable({ query, currentPage, lng }: CustomerTableType) {
+	const customers = await fetchFilteredCustomers(query, currentPage);	
+	const { t } = await serverTranslation(lng, 'dashboard');
 
 	return (
 		<div className="w-full">
@@ -12,41 +21,44 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 					<div className="inline-block min-w-full align-middle">
 						<div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
 							<div className="md:hidden">
-								{customers?.map((customer) => (
-									<div key={customer.id} className="mb-2 w-full rounded-md bg-white p-4">
+								{customers?.map(({ id, image_url, name, email, total_pending, total_paid, total_invoices }) => (
+									<div key={id} className="mb-2 w-full rounded-md bg-white p-4">
 										<div className="flex items-center justify-between border-b pb-4">
 											<div>
 												<div className="mb-2 flex items-center">
 													<div className="flex items-center gap-3">
 														<Image
-															src={customer.image_url}
+															src={image_url}
 															className="rounded-full"
-															alt={customer.name.slice(0, 3)}
+															alt={name.slice(0, 3)}
 															width={28}
 															height={28}
 														/>
-														<p>{customer.name}</p>
+														<p>{name}</p>
 													</div>
 												</div>
-												<p className="text-sm text-gray-500">{customer.email}</p>
+												<p className="text-sm text-gray-500">{email}</p>
 											</div>
 										</div>
 										<div className="flex w-full items-center justify-between border-b py-5">
 											<div className="flex w-1/2 flex-col">
-												<p className="text-xs">Pending</p>
-												<p className="font-medium">{customer.total_pending}</p>
+												<p className="text-xs">{t('total-pending')}</p>
+												<p className="font-medium">{total_pending}</p>
 											</div>
 											<div className="flex w-1/2 flex-col">
-												<p className="text-xs">Paid</p>
-												<p className="font-medium">{customer.total_paid}</p>
+												<p className="text-xs">{t('total-paid')}</p>
+												<p className="font-medium">{total_paid}</p>
 											</div>
 										</div>
 										<div className="flex w-full items-center justify-between pt-4">
-											<p>{customer.total_invoices} invoices</p>
-
+											<p>
+												<Trans i18nKey="totalInvoices" t={t} values={{ total_invoices }}>
+													{total_invoices} invoices
+												</Trans>
+											</p>
 											<div className="flex justify-end gap-2">
-												<UpdateCustomer id={customer.id} />
-												<DeleteCustomer id={customer.id} name={customer.name} />
+												<UpdateCustomer id={id} lng={lng} />
+												<DeleteCustomer id={id} name={name} lng={lng} />
 											</div>
 										</div>
 									</div>
@@ -56,19 +68,19 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 								<thead className="rounded-md bg-gray-50 text-left text-sm font-normal">
 									<tr>
 										<th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-											Name
+											{t('name')}
 										</th>
 										<th scope="col" className="px-3 py-5 font-medium">
-											Email
+											{t('email')}
 										</th>
 										<th scope="col" className="px-3 py-5 font-medium">
-											Total Invoices
+											{t('total-invoices')}
 										</th>
 										<th scope="col" className="px-3 py-5 font-medium">
-											Total Pending
+											{t('total-pending')}
 										</th>
 										<th scope="col" className="px-4 py-5 font-medium">
-											Total Paid
+											{t('total-paid')}
 										</th>
 										<th scope="col" className="px-4 py-5 font-medium"></th>
 									</tr>
@@ -103,8 +115,8 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 											</td>
 											<td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
 												<div className="flex justify-end gap-3">
-													<UpdateCustomer id={customer.id} />
-													<DeleteCustomer id={customer.id} name={customer.name} />
+													<UpdateCustomer id={customer.id} lng={lng} />
+													<DeleteCustomer id={customer.id} name={customer.name} lng={lng} />
 												</div>
 											</td>
 										</tr>
@@ -115,6 +127,6 @@ export default async function CustomersTable({ query, currentPage }: { query: st
 					</div>
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 }

@@ -3,9 +3,17 @@ import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices } from '@/app/lib/data';
+import { serverTranslation } from '@/app/i18n';
 
-export default async function InvoicesTable({ query, currentPage }: { query: string; currentPage: number }) {
-	const invoices = await fetchFilteredInvoices(query, currentPage);
+type InvoicesTableType = {
+	query: string,
+	currentPage: number,
+	lng: string
+};
+
+export default async function InvoicesTable({ query, currentPage, lng }: InvoicesTableType) {
+	const invoices = await fetchFilteredInvoices(query, currentPage);	
+	const { t } = await serverTranslation(lng, 'dashboard');
 
 	return (
 		<div className="mt-6 flow-root">
@@ -28,7 +36,7 @@ export default async function InvoicesTable({ query, currentPage }: { query: str
 										</div>
 										<p className="text-sm text-gray-500">{invoice.email}</p>
 									</div>
-									<InvoiceStatus status={invoice.status} />
+									<InvoiceStatus status={invoice.status} lng={lng} />
 								</div>
 								<div className="flex w-full items-center justify-between pt-4">
 									<div>
@@ -36,8 +44,8 @@ export default async function InvoicesTable({ query, currentPage }: { query: str
 										<p>{formatDateToLocal(invoice.date)}</p>
 									</div>
 									<div className="flex justify-end gap-2">
-										<UpdateInvoice id={invoice.id} />
-										<DeleteInvoice id={invoice.id} />
+										<UpdateInvoice id={invoice.id} lng={lng} />
+										<DeleteInvoice id={invoice.id} name={invoice.name} amount={formatCurrency(invoice.amount)} lng={lng} />
 									</div>
 								</div>
 							</div>
@@ -47,22 +55,22 @@ export default async function InvoicesTable({ query, currentPage }: { query: str
 						<thead className="rounded-lg text-left text-sm font-normal">
 							<tr>
 								<th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-									Customer
+									{t('customer')}
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Email
+									{t('email')}
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Amount
+									{t('amount')}
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Date
+									{t('date')}
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Status
+									{t('status')}
 								</th>
 								<th scope="col" className="relative py-3 pl-6 pr-3">
-									<span className="sr-only">Edit</span>
+									<span className="sr-only">{t('edit')}</span>
 								</th>
 							</tr>
 						</thead>
@@ -88,12 +96,12 @@ export default async function InvoicesTable({ query, currentPage }: { query: str
 									<td className="whitespace-nowrap px-3 py-3">{formatCurrency(invoice.amount)}</td>
 									<td className="whitespace-nowrap px-3 py-3">{formatDateToLocal(invoice.date)}</td>
 									<td className="whitespace-nowrap px-3 py-3">
-										<InvoiceStatus status={invoice.status} />
+										<InvoiceStatus status={invoice.status} lng={lng} />
 									</td>
 									<td className="whitespace-nowrap py-3 pl-6 pr-3">
 										<div className="flex justify-end gap-3">
-											<UpdateInvoice id={invoice.id} />
-											<DeleteInvoice id={invoice.id} />
+											<UpdateInvoice id={invoice.id} lng={lng} />
+											<DeleteInvoice id={invoice.id} name={invoice.name} amount={formatCurrency(invoice.amount)} lng={lng} />
 										</div>
 									</td>
 								</tr>

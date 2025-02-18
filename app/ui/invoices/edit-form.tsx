@@ -6,14 +6,24 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateInvoice, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
+import { useTranslation } from '@/app/i18n/client';
 
-export default function EditInvoiceForm({ invoice, customers }: { invoice: InvoiceForm; customers: CustomerField[] }) {
+
+type EditInvoiceFormType = {
+	invoice: InvoiceForm;
+	customers: CustomerField[];
+	lng: string;
+};
+
+export default function EditInvoiceForm({ invoice, customers, lng }: EditInvoiceFormType) {
 	const initialState: State = {
 		message: null,
 		errors: {},
 	};
-	const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+
+	const updateInvoiceWithId = updateInvoice.bind(null, invoice.id, lng);
 	const [state, formAction] = useActionState(updateInvoiceWithId, initialState);
+	const { t } = useTranslation(lng, 'dashboard');
 
 	return (
 		<form action={formAction}>
@@ -21,7 +31,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 				{/* Customer Name */}
 				<div className="mb-4">
 					<label htmlFor="customer" className="mb-2 block text-sm font-medium">
-						Choose customer
+						{t('choose-customer')}
 					</label>
 					<div className="relative">
 						<select
@@ -32,7 +42,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 							aria-describedby="customer-error"
 						>
 							<option value="" disabled>
-								Select a customer
+								{t('choose-customer')}
 							</option>
 							{customers.map((customer) => (
 								<option key={customer.id} value={customer.id}>
@@ -55,7 +65,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 				{/* Invoice Amount */}
 				<div className="mb-4">
 					<label htmlFor="amount" className="mb-2 block text-sm font-medium">
-						Choose an amount
+						{t('choose-an-amount')}
 					</label>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
@@ -65,7 +75,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 								type="number"
 								step="0.01"
 								defaultValue={invoice.amount}
-								placeholder="Enter USD amount"
+								placeholder={t('enter-usd-amount')}
 								className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
 								aria-describedby="amount-error"
 							/>
@@ -84,7 +94,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 
 				{/* Invoice Status */}
 				<fieldset>
-					<legend className="mb-2 block text-sm font-medium">Set the invoice status</legend>
+					<legend className="mb-2 block text-sm font-medium">{t('set-the-invoice-status')}</legend>
 					<div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
 						<div className="flex gap-4">
 							<div className="flex items-center">
@@ -101,7 +111,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 									htmlFor="pending"
 									className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
 								>
-									Pending <ClockIcon className="h-4 w-4" />
+									{t('pending')} <ClockIcon className="h-4 w-4" />
 								</label>
 							</div>
 							<div className="flex items-center">
@@ -118,7 +128,7 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 									htmlFor="paid"
 									className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white"
 								>
-									Paid <CheckIcon className="h-4 w-4" />
+									{t('paid')} <CheckIcon className="h-4 w-4" />
 								</label>
 							</div>
 						</div>
@@ -135,12 +145,12 @@ export default function EditInvoiceForm({ invoice, customers }: { invoice: Invoi
 			</div>
 			<div className="mt-6 flex justify-end gap-4">
 				<Link
-					href="/dashboard/invoices"
+					href={`/${lng}/dashboard/invoices`}
 					className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
 				>
-					Cancel
+					{t('cancel')}
 				</Link>
-				<Button type="submit">Edit Invoice</Button>
+				<Button type="submit">{t('edit-invoice')}</Button>
 			</div>
 		</form>
 	);
