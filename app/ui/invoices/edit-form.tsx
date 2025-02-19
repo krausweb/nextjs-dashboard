@@ -56,7 +56,7 @@ export default function EditInvoiceForm({ invoice, customers, lng }: EditInvoice
 						{Array.isArray(state.errors?.customerId) &&
 							state.errors.customerId.map((error: string) => (
 								<p className="mt-2 text-sm text-red-500" key={error}>
-									{error}
+									{t(error)}
 								</p>
 							))}
 					</div>
@@ -85,7 +85,7 @@ export default function EditInvoiceForm({ invoice, customers, lng }: EditInvoice
 							{Array.isArray(state.errors?.amount) &&
 								state.errors.amount.map((error: string) => (
 									<p className="mt-2 text-sm text-red-500" key={error}>
-										{error}
+										{t(error)}
 									</p>
 								))}
 						</div>
@@ -137,12 +137,19 @@ export default function EditInvoiceForm({ invoice, customers, lng }: EditInvoice
 						{Array.isArray(state.errors?.status) &&
 							state.errors.status.map((error: string) => (
 								<p className="mt-2 text-sm text-red-500" key={error}>
-									{error}
+									{t(error)}
 								</p>
 							))}
 					</div>
 				</fieldset>
 			</div>
+
+			{state.message && (
+				<div aria-live="polite" aria-atomic="true">
+					<p className="mt-2 text-sm text-red-500">{t(state.message)}</p>
+				</div>
+			)}
+
 			<div className="mt-6 flex justify-end gap-4">
 				<Link
 					href={`/${lng}/dashboard/invoices`}

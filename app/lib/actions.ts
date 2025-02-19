@@ -14,13 +14,13 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 const FormSchema = z.object({
 	id: z.string(),
 	customerId: z.string({
-		invalid_type_error: 'Please select a customer',
+		invalid_type_error: 'please-select-a-customer',
 	}),
 	amount: z.coerce // convert string
 		.number()	// 					to number
-		.gt(0, { message: 'Please enter an amount greater than $0' }),
+		.gt(0, { message: 'please-enter-an-amount-greater-than-zero' }),
 	status: z.enum(['pending', 'paid'], {
-		invalid_type_error: 'Please select an invoice status',
+		invalid_type_error: 'please-select-an-invoice-status',
 	}),
 	date: z.string(),
 });
@@ -49,7 +49,7 @@ export async function createInvoice(lng: string, prevStep: State, formData: Form
 	if (!validatedFields.success) {
 		return {
 			errors: validatedFields.error.flatten().fieldErrors,
-			message: 'Missing Fields. Failed to Create Invoice',
+			message: 'missing-fields-failed-to-create-invoice',
 		};
 	}
 
@@ -84,7 +84,7 @@ export async function updateInvoice(id: string, lng: string, prevStep: State, fo
 	if (!validatedFields.success) {
 		return {
 			errors: validatedFields.error.flatten().fieldErrors,
-			message: 'Missing Fields. Failed to Update Invoice',
+			message: 'missing-fields-failed-to-update-invoice',
 		};
 	}
 
@@ -126,17 +126,17 @@ export async function deleteInvoice(id: string, lng: string) {
 const FormSchemaCustomer = z.object({
 	id: z.string(),
 	name: z.string()
-		.min(3, { message: 'Please enter at least 3 symbols' }),
+		.min(3, { message: 'please-enter-at-least-3-symbols' }),
 	email: z.string()
-		.min(8, { message: 'Please enter at least 8 symbols' })
-		.email({ message: 'Please enter a valid email' }),
+		.min(8, { message: 'please-enter-at-least-8-symbols' })
+		.email({ message: 'please-enter-a-valid-email' }),
 	image_url: z.string()
-		.startsWith('https://', { message: 'Please enter a valid URL' })
+		.startsWith('https://', { message: 'please-enter-a-valid-url' })
 		.or(
-			z.string().startsWith('http://', { message: 'OR please enter a secure valid URL' })
+			z.string().startsWith('http://', { message: 'or-please-enter-a-secure-valid-url' })
 		)
 		.or(
-			z.string().startsWith('/', { message: 'OR please start URL with /' })
+			z.string().startsWith('/', { message: 'or-please-start-url-with-dash' })
 		),
 });
 
@@ -162,7 +162,7 @@ export async function createCustomer(lng: string, prevStep: StateCustomer, formD
 	if (!validatedFields.success) {
 		return {
 			errors: validatedFields.error.flatten().fieldErrors,
-			message: 'Missing Fields. Failed to Create Customer',
+			message: 'missing-fields-failed-to-create-customer',
 		};
 	}
 
@@ -193,7 +193,7 @@ export async function updateCustomer(id: string, lng: string, prevStep: StateCus
 	if (!validatedFields.success) {
 		return {
 			errors: validatedFields.error.flatten().fieldErrors,
-			message: 'Missing Fields. Failed to Update Customer',
+			message: 'missing-fields-failed-to-update-customer',
 		};
 	}
 

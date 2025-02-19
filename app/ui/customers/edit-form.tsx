@@ -56,7 +56,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 							{Array.isArray(state.errors?.name) &&
 								state.errors.name.map((error: string) => (
 									<p className="mt-2 text-sm text-red-500" key={error}>
-										{error}
+										{t(error)}
 									</p>
 								))}
 						</div>
@@ -85,7 +85,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 							{Array.isArray(state.errors?.email) &&
 								state.errors.email.map((error: string) => (
 									<p className="mt-2 text-sm text-red-500" key={error}>
-										{error}
+										{t(error)}
 									</p>
 								))}
 						</div>
@@ -123,7 +123,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 							{Array.isArray(state.errors?.image_url) &&
 								state.errors.image_url.map((error: string) => (
 									<p className="mt-2 text-sm text-red-500" key={error}>
-										{error}
+										{t(error)}
 									</p>
 								))}
 						</div>
@@ -133,7 +133,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 
 			{state.message && (
 				<div aria-live="polite" aria-atomic="true">
-					<p className="mt-2 text-sm text-red-500">{state.message}</p>
+					<p className="mt-2 text-sm text-red-500">{t(state.message)}</p>
 				</div>
 			)}
 

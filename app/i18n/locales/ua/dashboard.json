@@ -61,5 +61,18 @@
     "enter-customer-email": "Введіть емейл клієнта",
     "customer-image": "Фото клієнта",
     "enter-customer-image-url": "Введіть ЮРЛ фото клієнта",
-    "edit-customer": "Редагувати клієнта"
+    "edit-customer": "Редагувати клієнта",
+    "please-enter-an-amount-greater-than-zero": "Будь ласка, введіть суму більше $0",
+    "please-select-a-customer": "Будь ласка, виберіть клієнта",
+    "please-select-an-invoice-status": "Будь ласка, виберіть статус замовлення",
+    "please-enter-at-least-3-symbols": "Будь ласка, введіть щонайменше 3 символи",
+    "please-enter-at-least-8-symbols": "Будь ласка, введіть щонайменше 8 символи",
+    "please-enter-a-valid-email": "Будь ласка, введіть коректний емейл",
+    "please-enter-a-valid-url": "Будь ласка, введіть коректний ЮРЛ",
+    "or-please-enter-a-secure-valid-url": "чи, будь ласка, введіть захищений ЮРЛ",
+    "or-please-start-url-with-dash": "чи, будь ласка, введіть ЮРЛ який починається з /",
+    "missing-fields-failed-to-create-customer": "Пропущені поля. Помилка створення клієнта",
+    "missing-fields-failed-to-update-customer": "Пропущені поля. Помилка оновленя клієнта",
+    "missing-fields-failed-to-create-invoice": "Пропущені поля. Помилка створення замовлення",
+    "missing-fields-failed-to-update-invoice": "Пропущені поля. Помилка оновленя замовлення"
 }
