@@ -1,18 +1,31 @@
-import { create } from "zustand";
+import { createStore } from 'zustand/vanilla';
 
-type Store = {
-    mode: string;
-    toggleTheme: () => void;
-    toggleThemeAsync: () => Promise<void>;
+export type AppState = {
+    mode: string,
+    loremNumber: number
 }
 
-export const useThemeStore = create<Store>((set, get) => ({
-    mode: "light",
-    toggleTheme: () =>
-        set({ mode: get().mode === "light" ? "dark" : "light" }),
-        // OR set((state) => ({ mode: (state.mode === "light" ? "dark" : "light") }))
-    toggleThemeAsync: async () => { // Mock Async example
-        const response = await new Promise((resolve) => setTimeout(resolve, 1000));
-        set({ mode: get().mode === "light" ? "dark" : "light" });
-    }
-}));
+export type AppActions = {
+    toggleTheme: () => void,
+    loremMethod: () => Promise<void>,
+}
+
+export type AppStore = AppState & AppActions;
+
+export const defaultInitState: AppState = {
+    mode: 'light',
+    loremNumber: 100
+}
+
+export const createAppStore = (
+    initState: AppState = defaultInitState,
+) => {
+    return createStore<AppStore>()((set) => ({
+        ...initState,
+        toggleTheme: () => set((state) => ({ mode: state.mode === "light" ? "dark" : "light" })),
+        loremMethod: async () => { 
+            const response = await new Promise((resolve) => setTimeout(resolve, 1000));
+            set((state) => ({ loremNumber: state.loremNumber + 1}));
+        }
+    }))
+}

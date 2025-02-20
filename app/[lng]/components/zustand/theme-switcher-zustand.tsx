@@ -1,10 +1,10 @@
 'use client';
 
-import { useThemeStore } from "@/app/lib/store-zustand";
+import { useAppStore } from "@/app/[lng]/StoreProviderZustand";
 
 const ThemeSwitcher = () => {
-  const theme = useThemeStore((state) => state.mode);
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  const theme = useAppStore((state) => state.mode);
+  const toggleTheme = useAppStore((state) => state.toggleTheme);
 
   const changeTheme = () => {
     toggleTheme();

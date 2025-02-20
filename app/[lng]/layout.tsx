@@ -1,9 +1,10 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import type { Metadata } from 'next';
-import { StoreProvider } from "./StoreProviderRedux";
 import { dir } from 'i18next'
 import { languages } from '@/app/i18n/settings';
+import { StoreProvider } from "./StoreProviderRedux";
+import { StoreProvider as StoreProviderZustand } from "@/app/[lng]/StoreProviderZustand";
 
 export async function generateStaticParams() {
 	return languages.map((lng) => ({ lng }))
@@ -28,7 +29,7 @@ export default async function RootLayout(props: {
 		<StoreProvider>
 			<html lang={lng} dir={dir(lng)}>
 				<body className={`${inter.className} antialiased`}>
-					{children}
+					<StoreProviderZustand>{children}</StoreProviderZustand>
 					<div id="modal" />
 				</body>
 			</html>
