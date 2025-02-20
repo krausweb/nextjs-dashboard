@@ -3,13 +3,16 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice } from '@/app/lib/actions';
-import Modal from '@/app/ui/modal';
 import { useState } from 'react';
 import { useTranslation } from '@/app/i18n/client';
 import { Trans } from 'react-i18next/TransWithoutContext';
 
+import dynamic from "next/dynamic";
+const Modal = dynamic(() => import('@/app/ui/modal'));
+
 export function CreateInvoice({ lng }: { lng: string }) {
 	const { t } = useTranslation(lng, 'dashboard');
+
 	return (
 		<Link
 			href={`/${lng}/dashboard/invoices/create`}
@@ -22,6 +25,7 @@ export function CreateInvoice({ lng }: { lng: string }) {
 
 export function UpdateInvoice({ id, lng }: { id: string, lng: string }) {
 	const { t } = useTranslation(lng, 'dashboard');
+	
 	return (
 		<Link href={`/${lng}/dashboard/invoices/${id}/edit`}
 			className="rounded-md border p-2 hover:bg-gray-100"
