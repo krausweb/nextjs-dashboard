@@ -5,6 +5,7 @@ const links = [
 	{ name: 'Redux Counter Official', href: '/en/components/redux-counter-official' },
 	{ name: 'Redux Counter Community', href: '/en/components/redux-counter-community' },
 	{ name: 'Redux Dashboard Customers', href: '/en/components/redux-dashboard-customers' },
+	{ name: 'Zustand Client Component', href: '/en/components/zustand' },
 ];
 
 const links2 = [

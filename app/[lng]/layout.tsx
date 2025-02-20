@@ -1,8 +1,7 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import type { Metadata } from 'next';
-import { StoreProvider } from "./StoreProvider";
-
+import { StoreProvider } from "./StoreProviderRedux";
 import { dir } from 'i18next'
 import { languages } from '@/app/i18n/settings';
 
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 		template: '%s | Acme Dashboard',
 		default: 'Acme Dashboard',
 	},
-	description: 'The official Next.js Course Dashboard, built with App Router.'	
+	description: 'The official Next.js Course Dashboard, built with App Router.'
 };
 
 export default async function RootLayout(props: {
@@ -26,7 +25,7 @@ export default async function RootLayout(props: {
 	const children = props.children;
 
 	return (
-		<StoreProvider>			
+		<StoreProvider>
 			<html lang={lng} dir={dir(lng)}>
 				<body className={`${inter.className} antialiased`}>
 					{children}

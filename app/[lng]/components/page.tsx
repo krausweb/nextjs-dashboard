@@ -4,6 +4,7 @@ export default function Page() {
 		<div>List of examples:</div>
 		<ul>
 			<li>- Redux</li>
+			<li>- Zustand</li>
 		</ul>
 	</section>
 	);

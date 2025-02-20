@@ -1,5 +1,5 @@
 import { createAppSlice } from "@/app/lib/createAppSlice";
-import type { AppThunk } from "@/app/lib/store";
+import type { AppThunk } from "@/app/lib/store-redux";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { fetchCount } from "./counterAPI";
 
