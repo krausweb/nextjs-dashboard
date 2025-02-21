@@ -74,5 +74,6 @@
     "missing-fields-failed-to-create-customer": "Пропущені поля. Помилка створення клієнта",
     "missing-fields-failed-to-update-customer": "Пропущені поля. Помилка оновленя клієнта",
     "missing-fields-failed-to-create-invoice": "Пропущені поля. Помилка створення замовлення",
-    "missing-fields-failed-to-update-invoice": "Пропущені поля. Помилка оновленя замовлення"
+    "missing-fields-failed-to-update-invoice": "Пропущені поля. Помилка оновленя замовлення",
+    "database-error-failed-to-update-customer": "Помилка БД: невдалося оновити клієнта"
 }

@@ -6,8 +6,15 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { cookies } from 'next/headers';
+import { serverTranslation } from '@/app/i18n';
+import { fallbackLng, cookieName } from '@/app/i18n/settings';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
+async function getLngCookie() {
+	return (await cookies()).get(cookieName)?.value || fallbackLng;	
+}
 
 // MARK: Invoice Actions and deps
 
@@ -183,7 +190,10 @@ export async function createCustomer(lng: string, prevStep: StateCustomer, formD
 	redirect(`/${lng}/dashboard/customers`);
 }
 
-export async function updateCustomer(id: string, lng: string, prevStep: StateCustomer, formData: FormData) {
+export async function updateCustomer(id: string, prevStep: StateCustomer, formData: FormData) {
+	const lng = await getLngCookie();
+	const { t } = await serverTranslation(lng, 'dashboard');
+
 	const validatedFields = UpdateCustomer.safeParse({
 		name: formData.get('name'),
 		email: formData.get('email'),
@@ -207,7 +217,7 @@ export async function updateCustomer(id: string, lng: string, prevStep: StateCus
 		`;
 	} catch (error) {
 		return {
-			message: `Database Error: Failed to Update Customer`,
+			message: t('database-error-failed-to-update-customer'),
 		};
 	}
 

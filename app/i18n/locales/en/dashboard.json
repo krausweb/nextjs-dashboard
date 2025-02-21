@@ -74,5 +74,6 @@
     "missing-fields-failed-to-create-customer": "Missing Fields. Failed to Create Customer",
     "missing-fields-failed-to-update-customer": "Missing Fields. Failed to Update Customer",
     "missing-fields-failed-to-create-invoice": "Missing Fields. Failed to Create Invoice",
-    "missing-fields-failed-to-update-invoice": "Missing Fields. Failed to Update Invoice"
+    "missing-fields-failed-to-update-invoice": "Missing Fields. Failed to Update Invoice",
+    "database-error-failed-to-update-customer": "Database Error: Failed to Update Customer"
 }

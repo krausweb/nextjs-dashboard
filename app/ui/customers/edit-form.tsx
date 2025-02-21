@@ -22,7 +22,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 
 	const { t } = useTranslation(lng, 'dashboard');
 
-	const updateCustomerWithId = updateCustomer.bind(null, id, lng);
+	const updateCustomerWithId = updateCustomer.bind(null, id);
 	const [state, formAction] = useActionState(updateCustomerWithId, initialState);
 
 	const handleImageUrlChange = useDebouncedCallback((e) => {
