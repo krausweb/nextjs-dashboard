@@ -1,20 +1,21 @@
 import Form from '@/app/ui/invoices/create-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchCustomers } from '@/app/lib/data';
-import type { Metadata } from 'next';
 import { serverTranslation } from '@/app/i18n';
 
-export const metadata: Metadata = {
-	title: 'Invoices Create',
-};
-
-type LanguageType = {
+type LanguageType = Promise<{
 	lng: string
-};
+}>;
 
-export default async function Page(props: { params: Promise<LanguageType> }) {
+export async function generateMetadata({ params }: { params: LanguageType }) {
+	const { lng } = await params;
+	const { t } = await serverTranslation(lng, 'dashboard');
+	return { title: t('create-invoice') }
+}
+
+export default async function Page(props: { params: LanguageType }) {
 	const customers = await fetchCustomers();
-	const { lng } = await props.params;	
+	const { lng } = await props.params;
 	const { t } = await serverTranslation(lng, 'dashboard');
 
 	return (

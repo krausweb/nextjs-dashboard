@@ -6,16 +6,17 @@ import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchInvoicesPages } from '@/app/lib/data';
-import type { Metadata } from 'next';
 import { serverTranslation } from '@/app/i18n';
 
-export const metadata: Metadata = {
-	title: 'Invoices',
-};
-
-type LanguageType = {
+type LanguageType = Promise<{
 	lng: string
-};
+}>;
+
+export async function generateMetadata({ params }: { params: LanguageType }) {
+	const { lng } = await params;
+	const { t } = await serverTranslation(lng, 'dashboard');
+	return { title: t('invoices') }
+}
 
 export default async function Page(
 	props: {
@@ -23,14 +24,14 @@ export default async function Page(
 			query?: string;
 			page?: string;
 		}>,
-		params: Promise<LanguageType>
+		params: LanguageType
 	}
 ) {
 	const searchParams = await props.searchParams;
 	const query = searchParams?.query || '';
 	const currentPage = Number(searchParams?.page) || 1;
 	const totalPages = await fetchInvoicesPages(query);
-	const { lng } = await props.params;	
+	const { lng } = await props.params;
 	const { t } = await serverTranslation(lng, 'dashboard');
 
 	return (

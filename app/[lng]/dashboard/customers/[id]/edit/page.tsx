@@ -2,23 +2,28 @@ import Form from '@/app/ui/customers/edit-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchCustomerById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
 import { serverTranslation } from '@/app/i18n';
 
-export const metadata: Metadata = {
-	title: 'Customer Edit',
-};
+type LanguageType = Promise<{
+	lng: string
+}>;
 
 type PageEditType = {
-	id: string,
-	lng: string
+	params: Promise<{
+		id: string,
+		lng: string,
+	}>
 };
 
-export default async function Page(props: { params: Promise<PageEditType> }) {
-	const params = await props.params;
-	const id = params.id;
+export async function generateMetadata({ params }: { params: LanguageType }) {
+	const { lng } = await params;
+	const { t } = await serverTranslation(lng, 'dashboard');
+	return { title: t('edit-customer') }
+}
+
+export default async function Page({ params }: PageEditType) {
+	const { id, lng } = await params;
 	const customer = await fetchCustomerById(id);
-	const { lng } = await props.params;
 	const { t } = await serverTranslation(lng, 'dashboard');
 
 	if (!customer) {

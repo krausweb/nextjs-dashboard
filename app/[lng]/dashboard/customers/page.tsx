@@ -6,31 +6,32 @@ import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchCustomersPages } from '@/app/lib/data';
-import type { Metadata } from 'next';
 import { serverTranslation } from '@/app/i18n';
 
-export const metadata: Metadata = {
-	title: 'Customers',
-};
-
-type LanguageType = {
+type LanguageType = Promise<{
 	lng: string
-};
+}>;
 
-export default async function Page(
-	props: {
-		searchParams?: Promise<{
-			query?: string;
-			page?: string;
-		}>,
-		params: Promise<LanguageType>
-	}
-) {
-	const searchParams = await props.searchParams;
-	const query = searchParams?.query || '';
-	const currentPage = Number(searchParams?.page) || 1;
+type PageType = {
+	searchParams?: Promise<{
+		query?: string;
+		page?: string;
+	}>,
+	params: LanguageType
+}
+
+export async function generateMetadata({ params }: { params: LanguageType }) {
+	const { lng } = await params;
+	const { t } = await serverTranslation(lng, 'dashboard');
+	return { title: t('customers') }
+}
+
+export default async function Page({ searchParams, params }: PageType) {
+	const search = await searchParams;
+	const query = search?.query || '';
+	const currentPage = Number(search?.page) || 1;
 	const totalPages = await fetchCustomersPages(query);
-	const { lng } = await props.params;	
+	const { lng } = await params;
 	const { t } = await serverTranslation(lng, 'dashboard');
 
 	return (

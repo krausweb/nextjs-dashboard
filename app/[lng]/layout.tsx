@@ -1,26 +1,35 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
-import type { Metadata } from 'next';
 import { dir } from 'i18next'
 import { languages } from '@/app/i18n/settings';
 import { StoreProvider } from "./StoreProviderRedux";
 import { StoreProvider as StoreProviderZustand } from "@/app/[lng]/StoreProviderZustand";
+import { serverTranslation } from '@/app/i18n';
+
+type LanguageType = Promise<{
+	lng: string
+}>;
 
 export async function generateStaticParams() {
 	return languages.map((lng) => ({ lng }))
 }
 
-export const metadata: Metadata = {
-	title: {
-		template: '%s | Acme Dashboard',
-		default: 'Acme Dashboard',
-	},
-	description: 'The official Next.js Course Dashboard, built with App Router.'
-};
+export async function generateMetadata({ params }: { params: LanguageType }) {
+	const { lng } = await params;
+	const { t } = await serverTranslation(lng, 'dashboard');
+	return {
+		title: {
+			template: t('title-main-layout-acme-dashboard'),
+			default: t('title-acme-dashboard'),
+		},
+		description: t('description-acme-dashboard')
+	}
+}
+
 
 export default async function RootLayout(props: {
 	children: React.ReactNode,
-	params: Promise<{ lng: string }>,
+	params: LanguageType,
 }) {
 	const { lng } = await props.params;
 	const children = props.children;

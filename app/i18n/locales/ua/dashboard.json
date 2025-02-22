@@ -75,5 +75,8 @@
     "missing-fields-failed-to-update-customer": "Пропущені поля. Помилка оновленя клієнта",
     "missing-fields-failed-to-create-invoice": "Пропущені поля. Помилка створення замовлення",
     "missing-fields-failed-to-update-invoice": "Пропущені поля. Помилка оновленя замовлення",
-    "database-error-failed-to-update-customer": "Помилка БД: невдалося оновити клієнта"
+    "database-error-failed-to-update-customer": "Помилка БД: невдалося оновити клієнта",
+    "title-main-layout-acme-dashboard": "%s | Акме панель",
+    "title-acme-dashboard": "Акме панель",
+    "description-acme-dashboard": "Next.js App Router заснований на офіційному курсі Next.js Акмі панель."
 }
