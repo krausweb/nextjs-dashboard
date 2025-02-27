@@ -8,6 +8,7 @@ It contains the code for the dashboard application and examples with Next.js pop
 - Accept Language
 - Vitest
 - React Window
+- React Scan
 
 For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website, and:
 - Redux
@@ -21,3 +22,6 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 - [Accept Language NPM](https://www.npmjs.com/package/accept-language)
 - [Vitest Next.js](https://nextjs.org/docs/app/building-your-application/testing/vitest)
 - [React Window](https://www.npmjs.com/package/react-window)
+- React Scan
+    - [React Scan](https://react-scan.com/)
+    - [Browser Extensions](https://github.com/aidenybai/react-scan/blob/main/BROWSER_EXTENSION_GUIDE.md)
