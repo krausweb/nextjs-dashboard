@@ -5,6 +5,7 @@ export default function Page() {
 		<ul>
 			<li>- Redux</li>
 			<li>- Zustand</li>
+			<li>- React Window</li>
 		</ul>
 	</section>
 	);

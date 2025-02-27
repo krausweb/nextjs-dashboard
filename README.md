@@ -7,6 +7,7 @@ It contains the code for the dashboard application and examples with Next.js pop
 - React Error Boundary
 - Accept Language
 - Vitest
+- React Window
 
 For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website, and:
 - Redux
@@ -19,3 +20,4 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 - [React Error Boundary NPM](https://www.npmjs.com/package/react-error-boundary)
 - [Accept Language NPM](https://www.npmjs.com/package/accept-language)
 - [Vitest Next.js](https://nextjs.org/docs/app/building-your-application/testing/vitest)
+- [React Window](https://www.npmjs.com/package/react-window)
