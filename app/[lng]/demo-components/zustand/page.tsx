@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppStore } from "@/app/[lng]/StoreProviderZustand";
-import ThemeSwitcher from "@/app/[lng]/components/zustand/theme-switcher-zustand";
+import ThemeSwitcher from "@/app/[lng]/demo-components/zustand/theme-switcher-zustand";
 // import { useEffect, useState } from "react";
 
 export default function Page() {

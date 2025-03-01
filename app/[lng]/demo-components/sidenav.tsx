@@ -1,16 +1,16 @@
 import NavLinks from "@/app/ui/nav-links";
 
 const links = [
-	{ name: 'Components', href: '/en/components' },
-	{ name: 'Redux Counter Official', href: '/en/components/redux-counter-official' },
-	{ name: 'Redux Counter Community', href: '/en/components/redux-counter-community' },
-	{ name: 'Redux Dashboard Customers', href: '/en/components/redux-dashboard-customers' },
-	{ name: 'Zustand Client Component', href: '/en/components/zustand' },
-	{ name: 'React Window', href: '/en/components/react-window' },
+	{ name: 'Components', href: '/en/demo-components' },
+	{ name: 'Redux Counter Official', href: '/en/demo-components/redux-counter-official' },
+	{ name: 'Redux Counter Community', href: '/en/demo-components/redux-counter-community' },
+	{ name: 'Redux Dashboard Customers', href: '/en/demo-components/redux-dashboard-customers' },
+	{ name: 'Zustand Client Component', href: '/en/demo-components/zustand' },
+	{ name: 'React Window', href: '/en/demo-components/react-window' },
 ];
 
 const links2 = [
-	{ name: 'Testpages', href: '/en/components/testpages' },
+	{ name: 'Testpages', href: '/en/demo-components/testpages' },
 ]
 
 const links3 = [

@@ -1,4 +1,4 @@
-import Counter from '@/app/[lng]/components/redux-counter-community/counter';
+import Counter from '@/app/[lng]/demo-components/redux-counter-community/counter';
 
 const Page = () => {
 	return (

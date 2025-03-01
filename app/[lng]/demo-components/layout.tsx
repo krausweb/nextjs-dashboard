@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Sidenav from '@/app/[lng]/components/sidenav';
+import Sidenav from '@/app/[lng]/demo-components/sidenav';
 
 export const metadata: Metadata = {
 	title: 'Components'
