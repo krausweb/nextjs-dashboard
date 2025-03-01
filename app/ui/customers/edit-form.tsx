@@ -8,6 +8,7 @@ import { updateCustomer, StateCustomer } from '@/app/lib/actions';
 import { useActionState, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useTranslation } from '@/app/i18n/client';
+import { motion } from "motion/react"
 
 export default function EditInvoiceForm({ customer, lng }: { customer: CustomerForm, lng: string }) {
 	const initialState: StateCustomer = {
@@ -35,7 +36,17 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 		<form action={formAction}>
 			<div className="rounded-md bg-gray-50 p-4 md:p-6">
 				{/* Customer Name */}
-				<div className="mb-4">
+				<motion.div
+					initial={{ y: 100, opacity: 0 }}
+					whileInView={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.2,
+						delay: 0.4,
+						type: "spring",
+						stiffness: 100,
+					}}
+					className="mb-4"
+				>
 					<label htmlFor="name" className="mb-2 block text-sm font-medium">
 						{t('customer-name')}
 					</label>
@@ -61,10 +72,20 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 								))}
 						</div>
 					</div>
-				</div>
+				</motion.div>
 
 				{/* Customer Email */}
-				<div className="mb-4">
+				<motion.div
+					initial={{ y: 100, opacity: 0 }}
+					whileInView={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.4,
+						delay: 0.6,
+						type: "spring",
+						stiffness: 90,
+					}}
+					className="mb-4"
+				>
 					<label htmlFor="name" className="mb-2 block text-sm font-medium">
 						{t('customer-email')}
 					</label>
@@ -90,10 +111,20 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 								))}
 						</div>
 					</div>
-				</div>
+				</motion.div>
 
 				{/* Customer Image */}
-				<div className="mb-4">
+				<motion.div
+					initial={{ y: 100, opacity: 0 }}
+					whileInView={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.6,
+						delay: 0.8,
+						type: "spring",
+						stiffness: 80,
+					}}
+					className="mb-4"
+				>
 					<label htmlFor="image_url" className="mb-2 block text-sm font-medium">
 						<div className="flex w-40 items-center justify-between">
 							<span>{t('customer-image')}</span>
@@ -128,7 +159,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 								))}
 						</div>
 					</div>
-				</div>
+				</motion.div>
 			</div>
 
 			{state.message && (
