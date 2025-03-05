@@ -14,6 +14,7 @@ export type Customer = {
   name: string;
   email: string;
   image_url: string;
+  description: string;
 };
 
 export type Invoice = {
@@ -92,4 +93,5 @@ export type CustomerForm = {
 	name: string;
 	email: string;
 	image_url: string;
+  description: string;
 };

@@ -4,7 +4,7 @@ export const metadata: Metadata = {
 	title: 'Counter Page',
 }
 
-import styles from '@/app/ui/home.module.css';
+import styles from '@/app/ui/styles/home.module.css';
 
 export default function Page() {
 	return (

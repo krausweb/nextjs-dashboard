@@ -1,4 +1,4 @@
-import '@/app/ui/global.css';
+import '@/app/ui/styles/global.css';
 import { inter } from '@/app/ui/fonts';
 import { dir } from 'i18next'
 import { languages } from '@/app/i18n/settings';

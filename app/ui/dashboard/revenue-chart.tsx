@@ -16,7 +16,7 @@ type LanguageType = {
 }
 
 export default async function RevenueChart({ lng }: LanguageType) {
-  const revenue = await fetchRevenue();  
+  const revenue = await fetchRevenue();
   const { t } = await serverTranslation(lng, 'dashboard');
 
   if (!revenue || revenue.length === 0) {
@@ -33,7 +33,7 @@ export default async function RevenueChart({ lng }: LanguageType) {
         {t('recent-revenue')}
       </h2>
 
-      <div className="rounded-xl bg-gray-50 p-4">
+      <div className="rounded-xl bg-gray-100 p-4">
         <div className="sm:grid-cols-13 mt-0 grid grid-cols-12 items-end gap-2 rounded-md bg-white p-4 md:gap-4">
           <div
             className="mb-6 hidden flex-col justify-between text-sm text-gray-400 sm:flex"
@@ -60,9 +60,9 @@ export default async function RevenueChart({ lng }: LanguageType) {
         </div>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />
-          <h3 className="ml-2 text-sm text-gray-500">
-            <Trans i18nKey="last12Months" t={t}>
-              Last {{ monthsCount }} months
+          <h3 className="ml-2 text-sm text-gray-500">            
+            <Trans i18nKey="last12Months" t={t} values={{ monthsCount }}>
+              Last {monthsCount} months              
             </Trans>
           </h3>
         </div>

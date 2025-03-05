@@ -16,3 +16,9 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+@layer base {
+  h1 {
+    @apply text-2xl font-bold;
+  }
+}

@@ -10,6 +10,7 @@ It contains the code for the dashboard application and examples with Next.js pop
 - React Window
 - React Scan
 - Motion
+- Tiptap
 
 For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website, and:
 - Redux
@@ -27,3 +28,8 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
     - [React Scan](https://react-scan.com/)
     - [Browser Extensions](https://github.com/aidenybai/react-scan/blob/main/BROWSER_EXTENSION_GUIDE.md)
 - [Motion](https://motion.dev/docs/react-motion-component)
+- Tiptap
+    - [Tiptap](https://tiptap.dev/docs/editor/getting-started/install/nextjs)
+    - [How to develop a custom menu](https://tiptap.dev/docs/editor/getting-started/style-editor/custom-menus)
+    - [Tiptap Extension Resize Image](https://www.npmjs.com/package/tiptap-extension-resize-image)
+    - [Custom Rich Text Editor With Validation | Next.js 14 & React js | next js tailwind css](https://www.youtube.com/watch?v=wdG9Qa6ocYk)

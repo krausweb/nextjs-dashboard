@@ -13,7 +13,7 @@ import { fallbackLng, cookieName } from '@/app/i18n/settings';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 async function getLngCookie() {
-	return (await cookies()).get(cookieName)?.value || fallbackLng;	
+	return (await cookies()).get(cookieName)?.value || fallbackLng;
 }
 
 // MARK: Invoice Actions and deps
@@ -145,6 +145,7 @@ const FormSchemaCustomer = z.object({
 		.or(
 			z.string().startsWith('/', { message: 'or-please-start-url-with-dash' })
 		),
+	description: z.string(),
 });
 
 export type StateCustomer = {
@@ -164,6 +165,7 @@ export async function createCustomer(lng: string, prevStep: StateCustomer, formD
 		name: formData.get('name'),
 		email: formData.get('email'),
 		image_url: formData.get('image_url'),
+		description: formData.get('description'),
 	});
 
 	if (!validatedFields.success) {
@@ -173,12 +175,12 @@ export async function createCustomer(lng: string, prevStep: StateCustomer, formD
 		};
 	}
 
-	const { name, email, image_url } = validatedFields.data;
+	const { name, email, image_url, description } = validatedFields.data;
 
 	try {
 		await sql`
-			INSERT INTO customers (name, email, image_url)
-			VALUES (${name}, ${email}, ${image_url})
+			INSERT INTO customers (name, email, image_url, description)
+			VALUES (${name}, ${email}, ${image_url}, ${description})
 		`;
 	} catch (error) {
 		return {
@@ -198,6 +200,7 @@ export async function updateCustomer(id: string, prevStep: StateCustomer, formDa
 		name: formData.get('name'),
 		email: formData.get('email'),
 		image_url: formData.get('image_url'),
+		description: formData.get('description'),
 	});
 
 	if (!validatedFields.success) {
@@ -207,12 +210,12 @@ export async function updateCustomer(id: string, prevStep: StateCustomer, formDa
 		};
 	}
 
-	const { name, email, image_url } = validatedFields.data;
+	const { name, email, image_url, description } = validatedFields.data;
 
 	try {
 		await sql`
 			UPDATE customers
-			SET name = ${name}, email = ${email}, image_url = ${image_url}
+			SET name = ${name}, email = ${email}, image_url = ${image_url}, description = ${description}
 			WHERE id = ${id}
 		`;
 	} catch (error) {
@@ -221,6 +224,7 @@ export async function updateCustomer(id: string, prevStep: StateCustomer, formDa
 		};
 	}
 
+	revalidatePath(`/${lng}/dashboard/customers/${id}/edit`); // revalidate Tiptap content cache for updated page
 	revalidatePath(`/${lng}/dashboard/customers`);
 	redirect(`/${lng}/dashboard/customers`);
 }

@@ -5,6 +5,7 @@ import { Button } from '@/app/ui/button';
 import { createCustomer, StateCustomer } from '@/app/lib/actions';
 import { useActionState, useState } from 'react';
 import { useTranslation } from '@/app/i18n/client';
+import TiptapRichTextEditor from '@/app/ui/tiptap';
 
 type FormType = {
 	lng: string
@@ -21,11 +22,12 @@ export default function Form({ lng }: FormType) {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [image_url, setImageUrl] = useState('');
+	const [description, setDescription] = useState('');
 	const { t } = useTranslation(lng, 'dashboard');
 
 	return (
 		<form action={formAction}>
-			<div className="rounded-md bg-gray-50 p-4 md:p-6">
+			<div className="rounded-md bg-gray-100 p-4 md:p-6">
 				{/* Customer Name */}
 				<div className="mb-4">
 					<label htmlFor="name" className="mb-2 block text-sm font-medium">
@@ -112,6 +114,25 @@ export default function Form({ lng }: FormType) {
 						</div>
 					</div>
 				</div>
+
+				{/* Customer Description */}
+				<div className="mb-4"				>
+					<label htmlFor="description" className="mb-2 block text-sm font-medium">
+						{t('customer-description')}
+					</label>
+					<div className="relative mt-2 rounded-md">
+						<div className="relative">
+							<TiptapRichTextEditor content={description} updateContent={(value) => setDescription(value)} />
+							<input
+								type="hidden"
+								id="description"
+								name="description"
+								defaultValue={description}
+							/>
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 			{state.message && (

@@ -9,6 +9,7 @@ import { useActionState, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useTranslation } from '@/app/i18n/client';
 import { motion } from "motion/react"
+import TiptapRichTextEditor from '@/app/ui/tiptap';
 
 export default function EditInvoiceForm({ customer, lng }: { customer: CustomerForm, lng: string }) {
 	const initialState: StateCustomer = {
@@ -20,6 +21,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 	const [name, setName] = useState(customer.name);
 	const [email, setEmail] = useState(customer.email);
 	const [image_url, setImageUrl] = useState(customer.image_url);
+	const [description, setDescription] = useState(customer.description);
 
 	const { t } = useTranslation(lng, 'dashboard');
 
@@ -34,7 +36,7 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 
 	return (
 		<form action={formAction}>
-			<div className="rounded-md bg-gray-50 p-4 md:p-6">
+			<div className="rounded-md bg-gray-100 p-4 md:p-6">
 				{/* Customer Name */}
 				<motion.div
 					initial={{ y: 100, opacity: 0 }}
@@ -160,6 +162,35 @@ export default function EditInvoiceForm({ customer, lng }: { customer: CustomerF
 						</div>
 					</div>
 				</motion.div>
+
+				{/* Customer Description */}
+				<motion.div
+					initial={{ y: 100, opacity: 0 }}
+					whileInView={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.6,
+						delay: 0.8,
+						type: "spring",
+						stiffness: 80,
+					}}
+					className="mb-4"
+				>
+					<label htmlFor="description" className="mb-2 block text-sm font-medium">
+						{t('customer-description')}
+					</label>
+					<div className="relative mt-2 rounded-md">
+						<div className="relative">
+							<TiptapRichTextEditor content={description} updateContent={(value) => setDescription(value)} />
+							<input
+								type="hidden"
+								id="description"
+								name="description"
+								defaultValue={description}
+							/>
+						</div>
+					</div>
+				</motion.div>
+
 			</div>
 
 			{state.message && (
