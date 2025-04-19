@@ -10,7 +10,7 @@ function Counter() {
 
 	return (
 		<section>
-			<h1>{count}</h1>
+			<h2 className="dark:text-white">{count}</h2>
 			<div className="grid grid-cols-4 gap-4">
 				<button onClick={() => dispatch(increment())} className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400">
 					Increment

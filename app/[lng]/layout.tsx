@@ -40,7 +40,7 @@ export default async function RootLayout(props: {
 				<head>
 					<script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
 				</head>
-				<body className={`${inter.className} antialiased`}>
+				<body className={`${inter.className} antialiased dark:bg-gray-950`}>
 					<StoreProviderZustand>{children}</StoreProviderZustand>
 					<div id="modal" />
 				</body>

@@ -6,11 +6,11 @@ import CustomerListFromDB from "./customerList";
 export default function Page() {
 	return (
 		<div>
-			<h1>Customers from Redux Store</h1>
+			<h1 className="dark:text-white">Customers from Redux Store</h1>
 
 			<Customer />
 
-			<Suspense fallback={<div>Loading customers...</div>}>
+			<Suspense fallback={<div className="dark:text-white">Loading customers...</div>}>
 				<CustomerListFromDB />
 			</Suspense>
 		</div>

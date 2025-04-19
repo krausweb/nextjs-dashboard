@@ -24,7 +24,7 @@ export const Counter = () => {
 	const incrementValue = Number(incrementAmount) || 0;
 
 	return (
-		<div className="mb-10">
+		<section className="mb-10 dark:text-white">
 			<h2 className="text-2xl font-bold my-4">Counter</h2>
 			<div className={styles.row}>
 				<button
@@ -77,6 +77,6 @@ export const Counter = () => {
 					Add If Odd
 				</button>
 			</div>
-		</div>
+		</section>
 	);
 };

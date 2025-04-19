@@ -16,16 +16,16 @@ export function Quotes() {
 	}, 1000);
 
 	if (isError) {
-		return <h2>Error Occurred</h2>;
+		return <h2 className="dark:text-white">Error Occurred</h2>;
 	}
 
 	if (isLoading) {
-		return <h2>Loading: {isLoading ? 'Yes' : 'No'}</h2>
+		return <h2 className="dark:text-white">Loading: {isLoading ? 'Yes' : 'No'}</h2>
 	}
 
 	if (isSuccess) {
 		return (
-			<div className="mb-10">
+			<section className="mb-10 dark:text-white">
 				<h2 className="text-2xl font-bold my-4">Quotes</h2>
 				<div>Number of quotes: <strong>{data.quotes.length}</strong></div>
 
@@ -45,15 +45,15 @@ export function Quotes() {
 						onChange={(e) => handleQuotesNumberChange(e.target.value)} />
 				</div>
 
-				<section>
+				<div>
 					{data.quotes.map((quote) => (
 						<div key={quote.id} className="my-4">
 							<p><cite>Author: {quote.author}</cite></p>
 							<blockquote>Quote: {quote.quote}</blockquote>
 						</div>
 					))}
-				</section>
-			</div>
+				</div>
+			</section>
 		);
 	}
 }

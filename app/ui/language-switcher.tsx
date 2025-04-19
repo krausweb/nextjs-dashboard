@@ -14,9 +14,9 @@ export default function LanguageSwitcher({ lng }: { lng: string }) {
 		<section>
 			{languages.map((l, index) => {
 				return (
-					<span key={l} >
+					<span key={l} className='dark:color-white' >
 						{index > 0 && (` ${t('or')} `)}
-						
+
 						{
 							lng === l ? (
 								<span className="bg-gray-600 inline-flex place-items-center h-10 rounded-lg px-4 text-sm font-medium text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
@@ -27,7 +27,7 @@ export default function LanguageSwitcher({ lng }: { lng: string }) {
 									href={`/${l}${localpathWithoutLng}`}>
 									{l}
 								</Link>
-							)									
+							)
 						}
 					</span>
 				)

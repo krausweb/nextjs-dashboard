@@ -16,7 +16,7 @@ type LanguageType = {
 export default function LoginForm({ lng }: LanguageType) {
 	const { t } = useTranslation(lng);
 	const searchParams = useSearchParams();
-	const callbackUrl = searchParams.get('callbackUrl') || `/${lng}/dashboard`;	
+	const callbackUrl = searchParams.get('callbackUrl') || `/${lng}/dashboard`;
 	const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined);
 
 	return (

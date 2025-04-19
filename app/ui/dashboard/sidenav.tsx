@@ -10,7 +10,7 @@ type LanguageType = {
 	lng: string
 };
 
-export default async function SideNav({ lng }: LanguageType) {	
+export default async function SideNav({ lng }: LanguageType) {
 	const { t } = await serverTranslation(lng, 'dashboard');
 
 	return (
@@ -28,7 +28,9 @@ export default async function SideNav({ lng }: LanguageType) {
 				<div className="hidden h-auto w-full grow rounded-md bg-gray-100 md:block"></div>
 				<Link
 					href={`/${lng}/demo-components`}
-					className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
+					className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium my-1
+						hover:bg-sky-100 hover:text-blue-600
+						md:flex-none md:justify-start md:p-2 md:px-3 md:my-0"
 				>
 					<FireIcon className="w-6" />
 					<p className="hidden md:block">{t('components')}</p>
@@ -40,7 +42,9 @@ export default async function SideNav({ lng }: LanguageType) {
 							await signOut({ redirectTo: `/${lng}/` });
 						}}
 					>
-						<button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+						<button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium my-1
+							hover:bg-sky-100 hover:text-blue-600
+							md:flex-none md:justify-start md:p-2 md:px-3 md:my-0">
 							<PowerIcon className="w-6" />
 							<div className="hidden md:block">{t('sign-out')}</div>
 						</button>

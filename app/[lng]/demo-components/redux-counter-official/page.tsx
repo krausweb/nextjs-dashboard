@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Page() {
 	return (
 		<>
-			<h1 className="text-3xl font-bold">Several Components with examples</h1>
+			<h1 className="text-3xl font-bold dark:text-white">Several Components with examples</h1>
 			<Counter />
 			<Quotes />
 		</>

@@ -4,7 +4,7 @@ export default async function CustomerList() {
 	const customerList = await fetchCustomers();
 
 	return (
-		<section>
+		<section className="dark:text-white">
 			<h2 className="text-xl font-bold my-4">Customers Table. Fetch data from DB</h2>
 			{customerList.map((customer) => (
 				<div className="border border-gray-200 p-4 mb-4" key={customer.id}>
